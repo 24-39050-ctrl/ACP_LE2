@@ -22,6 +22,7 @@ class StudentRecords:
         self.students.append(new_student)
         return "Student added successfully"
 
+    #Update students
     def update_student(self, student_id, email=None, grades=None, courses=None):
         for student in self.students:
             if student.id_name[0] == student_id:
@@ -34,9 +35,9 @@ class StudentRecords:
                 return "Student updated successfully"
 
         return "Student not found"
-
+        
+     # Remove student if found
     def delete_student(self, student_id):
-        # Remove student if found
         for i, student in enumerate(self.students):
             if student.id_name[0] == student_id:
                 del self.students[i]
@@ -44,5 +45,33 @@ class StudentRecords:
 
         return "Student not found"
 
+    #enroll all course 
+    def enroll_course(self, student_id, course):
+        for student in self.students:
+            if student.id_name[0] == student_id:
+                student.courses.add(course)
+                return "Course enrolled successfully"
+
+        return "Student not found"
+
+    #search the students by id
+    def search_student(self, student_id):
+        for student in self.students:
+            if student.id_name[0] == student_id:
+                return str(student)
+
+        return "Student not found"
+
+    #search students by na,me
+    def search_by_name(self, name):
+        matches = []
+        for student in self.students:
+            if name.lower() in student.id_name[1].lower():
+                matches.append(student)
+
+        if matches:
+            return "\n".join(str(student) for student in matches)
+        else:
+            return "No students found with that name"
 
     
