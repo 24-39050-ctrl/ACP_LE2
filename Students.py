@@ -109,4 +109,65 @@ class StudentRecords:
         else:
             return "No students found with that name"
 
+#Chuld class
+class FinalStudent(StudentRecords, Student):
+    
+    #calling the parent class StudentRecords
+    records = StudentRecords()
+
+    #Adding students
+    print(records.add_student("01", "Daryl Tiqio", "daryltiqio@email.com"))
+    print(records.add_student("02", "Aaron Dave", "aarondave@email.com",
+                              {"Math": 85, "Science": 92, "English": 88,
+                                  "History": 79, "Physics": 91},
+                              {"Math", "Science", "English", "History", "Physics"}))
+
+    print(records.add_student("03", "Maria Santos", "mariasantos@email.com",
+                              {"Math": 90, "Science": 94, "English": 89,
+                                  "History": 95, "Physics": 94},
+                              {"Math", "Science", "English", "History", "Physics"}))
+
+    #updating studentsd
+    print(records.update_student("01", email="daryltiqio@email.com"))
+
+    #enrolling courses
+    print(records.enroll_course("01", "History"))
+    print(records.enroll_course("01", "Math"))
+    print(records.enroll_course("01", "English"))
+    print(records.enroll_course("01", "Science"))
+    print(records.enroll_course("01", "Physics"))
+    print(records.enroll_course("01", "Computer Programming"))
+    
+    print(records.update_student("01", grades={
+          "History": 88, "Math": 76, "English": 82, "Science": 85, "Physics": 90, "Computer Programming": 87}))
+
+    print(records.enroll_course("02", "Computer Programming"))
+    print(records.enroll_course("02", "Physics"))
+    print(records.update_student("02", grades={
+          "Computer Programming": 89, "Physics": 83}))
+
+    #searching students by id
+    print("\nSearch by ID:")
+    print(records.search_student("01"))
+    print(records.search_student("02"))
+    print(records.search_student("03"))
+
+    #searching students  by name
+    print("\nSearch by name (partial match):")
+    print(records.search_by_name("Daryl"))
+    print(records.search_by_name("Aaron"))
+    print(records.search_by_name("Maria"))
+
+    #printing the students id and name and their courses and gpa
+    for student in records.students:
+        print(f"\nGPA for {student.id_name[1]}: {student.calculate_gpa()}")
+        print(f"Courses taken: {', '.join(sorted(student.courses))}\n")
+
+    #deleting styudent 
+    print(records.delete_student("02"))
+
+    #searching the deleted student
+    print(records.search_student("02"))
+
+
     
