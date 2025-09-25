@@ -4,10 +4,45 @@ class Student:
         self.email = email  # String for email
         self.grades = grades if grades is not None else {}  # Dictionary for grades
         self.courses = set(courses) if courses is not None else set()  # Set for courses
+
+    
     def __str__(self):
         return (f"ID: {self.id_name[0]}, Name: {self.id_name[1]}, Email: {self.email}, "
                 f"Courses: {', '.join(self.courses) if self.courses else 'None'}, "
                 f"Grades: {self.grades if self.grades else 'None'}")
+
+    #calculating the gpa of studentss
+     def calculate_gpa(self):
+        if not self.grades:
+            return 0.0
+
+        grade_points = {
+            'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7,
+            'C+': 2.3, 'C': 2.0, 'C-': 1.7, 'D+': 1.3, 'D': 1.0, 'F': 0.0
+        }
+
+        total_points = 0
+        valid_grades = 0
+
+        for score in self.grades.values():
+            if isinstance(score, (int, float)):
+                if score >= 90:
+                    letter_grade = 'A'
+                elif score >= 80:
+                    letter_grade = 'B'
+                elif score >= 70:
+                    letter_grade = 'C'
+                elif score >= 60:
+                    letter_grade = 'D'
+                else:
+                    letter_grade = 'F'
+
+                if letter_grade in grade_points:
+                    total_points += grade_points[letter_grade]
+                    valid_grades += 1
+
+        return round(total_points / valid_grades, 2) if valid_grades > 0 else 0.0
+         
 
 class StudentRecords:
     def __init__(self):
